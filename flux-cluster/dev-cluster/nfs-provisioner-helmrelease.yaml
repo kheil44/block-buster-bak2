@@ -15,5 +15,5 @@ spec:
         namespace: flux-system  # Replace with the namespace where your Git repository is defined
   values:
     nfs:
-      server: <NFS_SERVER_IP>  # Replace with your NFS server's IP address
-      path: /path/to/nfs  # Replace with the path you want to use on the NFS server
+      server: 206.189.181.139  # Replace with your NFS server's IP address
+      path: /nfsexport  # Replace with the path you want to use on the NFS server
