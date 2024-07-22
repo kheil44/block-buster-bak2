@@ -1,9 +1,9 @@
-# flux-cluster/dev-cluster/helm-repository.yaml
+# flux-cluster/dev-cluster/nfs-subdir-external-provisioner-repo.yaml
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: helm-stable-repo # Updated to a more descriptive name
+  name: nfs-subdir-external-provisioner-repo
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  url: https://charts.helm.sh/stable
+  url: https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/master/deploy/helm-chart
