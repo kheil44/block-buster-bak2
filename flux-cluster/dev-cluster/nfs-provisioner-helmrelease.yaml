@@ -2,18 +2,21 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: nfs-provisioner
-  namespace: kube-system  # You can choose a different namespace if needed
+  namespace: kube-system
 spec:
-  releaseName: nfs-provisioner
+  interval: 1m0s
   chart:
     spec:
-      chart: nfs-subdir-external-provisioner
-      version: 4.0.0  # Specify the version you want to install
+      chart: nfs-provisioner
+      version: 1.0.0 # Specify the correct version of the chart
       sourceRef:
-        kind: GitRepository
-        name: your-git-repo-name  # Replace with your Git repository name
-        namespace: flux-system  # Replace with the namespace where your Git repository is defined
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
   values:
+    storageClass:
+      name: nfs
+      defaultClass: true
     nfs:
-      server: 206.189.181.139  # Replace with your NFS server's IP address
-      path: /nfsexport  # Replace with the path you want to use on the NFS server
+      server: nfs-server.example.com # Replace with your actual NFS server address
+      path: /nfsexport
