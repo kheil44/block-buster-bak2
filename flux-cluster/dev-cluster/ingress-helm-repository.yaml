@@ -1,0 +1,9 @@
+# flux-cluster/dev-cluster/nginx-ingress-repo.yaml
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: ingress-nginx-repo  # Unique name for the Helm repository
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  url: https://kubernetes.github.io/ingress-nginx
