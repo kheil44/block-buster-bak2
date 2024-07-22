@@ -1,17 +1,18 @@
+# flux-cluster/dev-cluster/nfs-provisioner-helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: nfs-provisioner
   namespace: kube-system
 spec:
-  interval: 1m0s
+  interval: 5m0s
   chart:
     spec:
       chart: nfs-provisioner
       version: 1.0.0 # Specify the correct version of the chart
       sourceRef:
         kind: HelmRepository
-        name: stable
+        name: helm-stable-repo # Updated to match the new repository name
         namespace: flux-system
   values:
     storageClass:
