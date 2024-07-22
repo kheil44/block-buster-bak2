@@ -19,5 +19,5 @@ spec:
       name: nfs
       defaultClass: true
     nfs:
-      server: nfs-server.example.com # Replace with your actual NFS server address
+      server: 198.199.81.115 # Replace with your actual NFS server address
       path: /nfsexport
