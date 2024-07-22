@@ -1,23 +1,20 @@
-# flux-cluster/dev-cluster/nfs-provisioner-helmrelease.yaml
+# flux-cluster/dev-cluster/nfs-subdir-external-provisioner-helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nfs-provisioner
+  name: nfs-subdir-external-provisioner
   namespace: kube-system
 spec:
-  interval: 5m0s
+  interval: 1m0s
   chart:
     spec:
-      chart: nfs-provisioner
+      chart: nfs-subdir-external-provisioner
       version: 1.0.0 # Specify the correct version of the chart
       sourceRef:
         kind: HelmRepository
-        name: helm-stable-repo # Updated to match the new repository name
+        name: nfs-subdir-external-provisioner-repo # Reference the new repository
         namespace: flux-system
   values:
-    storageClass:
-      name: nfs
-      defaultClass: true
     nfs:
       server: 198.199.81.115 # Replace with your actual NFS server address
       path: /nfsexport
