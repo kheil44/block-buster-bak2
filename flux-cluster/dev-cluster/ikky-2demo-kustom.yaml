@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ikky-2demo-kustom
+  namespace: flux-system
+spec:
+  interval: 10s
+  path: ./kustomize_without_kustomize_file
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: ikky-2demo-source
+  targetNamespace: 22-demo
