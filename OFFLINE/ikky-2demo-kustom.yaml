@@ -6,8 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10s
-  path: ./kustomize_without_kustomize_file
-  prune: true
+  path: ./kustomize_without_kustomize_file # this worked too but i think it shoul have been ;
+  prune: true                               #./kustomize_without_kustomize_file/manifests
   sourceRef:
     kind: GitRepository
     name: ikky-2demo-source
