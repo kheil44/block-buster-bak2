@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: jenkins-helm-repo  # This should match the name of the HelmRepository
         namespace: flux-system  # Change to the namespace where the HelmRepository is defined
-      version: 3.5.9  # Specify the version of the Jenkins chart you want to install
+      #version: 3.5.9  # Specify the version of the Jenkins chart you want to install
   values:
     master:
       persistence:
