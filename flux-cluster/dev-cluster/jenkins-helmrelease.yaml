@@ -1,4 +1,3 @@
-#apiVersion: helm.toolkit.fluxcd.io/v2beta1  # Ensure this is the correct version
 apiVersion: helm.toolkit.fluxcd.io/v2  # Ensure this is the correct version
 kind: HelmRelease
 metadata:
@@ -16,7 +15,9 @@ spec:
       version: 5.4.0  # Specify the version of the Jenkins chart you want to install
   interval: 1m  # Required field: How often to reconcile the HelmRelease
   values:
-    controller:  # changed from master to controller
+    controller:  # Changed from master to controller
+      service:
+        type: LoadBalancer  # Change to LoadBalancer for external access
       persistence:
         enabled: true
         existingClaim: jenkins-pvc  # Reference to your existing PVC
