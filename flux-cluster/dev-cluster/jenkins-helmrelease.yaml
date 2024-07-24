@@ -17,12 +17,31 @@ spec:
   values:
     controller:
       service:
-        type: NodePort
+        type: NodePort  # Set to NodePort for external access
       persistence:
         enabled: true
         existingClaim: jenkins-pvc
       replicas: 1  # Set to 1 for the Jenkins master
       jenkinsUrl: http://jenkins:8080  # URL for Jenkins
+      resources:
+        limits:
+          memory: "2Gi"  # Increase memory limit for the Jenkins master
+          cpu: "1000m"   # Increase CPU limit for the Jenkins master
+        requests:
+          memory: "1Gi"  # Increase memory request for the Jenkins master
+          cpu: "500m"    # Increase CPU request for the Jenkins master
+      livenessProbe:
+        enabled: true
+        initialDelaySeconds: 60  # Increase delay before the first probe
+        periodSeconds: 30
+        timeoutSeconds: 5
+        failureThreshold: 3
+      readinessProbe:
+        enabled: true
+        initialDelaySeconds: 60  # Increase delay before the first probe
+        periodSeconds: 30
+        timeoutSeconds: 5
+        failureThreshold: 3
       kubernetes:
         enabled: true  # Enable Kubernetes plugin
         namespace: default  # Namespace where agents will run
@@ -36,8 +55,8 @@ spec:
                 args: ['\$(JENKINS_SECRET)', '\$(JENKINS_AGENT_NAME)']
                 resource:
                   limits:
-                    memory: "2Gi"
-                    cpu: "1000m"
+                    memory: "1Gi"   # Increase maximum memory for the agent
+                    cpu: "1000m"    # Increase maximum CPU for the agent
                   requests:
-                    memory: "1Gi"
-                    cpu: "500m"
+                    memory: "512Mi"  # Increase minimum memory for the agent
+                    cpu: "500m"      # Increase minimum CPU for the agent
