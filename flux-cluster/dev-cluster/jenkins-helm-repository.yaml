@@ -1,4 +1,5 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+#apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: jenkins-helm-repo
@@ -6,3 +7,4 @@ metadata:
 spec:
   url: https://charts.jenkins.io
   interval: 1m
+
