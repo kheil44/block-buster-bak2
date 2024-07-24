@@ -17,7 +17,7 @@ spec:
   values:
     controller:  # Changed from master to controller
       service:
-        type: LoadBalancer  # Change to LoadBalancer for external access
+        type: NodePort  # Change to LoadBalancer for external access
       persistence:
         enabled: true
         existingClaim: jenkins-pvc  # Reference to your existing PVC
