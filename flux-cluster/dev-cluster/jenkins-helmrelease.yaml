@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jenkins
+  namespace: default  # Change to your desired namespace
+spec:
+  releaseName: jenkins
+  chart:
+    spec:
+      chart: jenkins
+      sourceRef:
+        kind: HelmRepository
+        name: jenkins-helm-repo  # This should match the name of the HelmRepository
+        namespace: flux-system  # Change to the namespace where the HelmRepository is defined
+      version: 5.4.0  # Specify the version of the Jenkins chart you want to install
+  values:
+    master:
+      persistence:
+        enabled: true
+        existingClaim: jenkins-pvc  # Reference the PVC created earlier
+      replicas: 2  # Set the number of replicas to 2
