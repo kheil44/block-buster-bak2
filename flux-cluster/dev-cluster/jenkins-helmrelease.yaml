@@ -16,7 +16,7 @@ spec:
       version: 3.5.9  # Specify the version of the Jenkins chart you want to install
   interval: 1m  # Required field: How often to reconcile the HelmRelease
   values:
-    master:
+    controller:  # changed from master to controller
       persistence:
         enabled: true
         existingClaim: jenkins-pvc  # Reference to your existing PVC
