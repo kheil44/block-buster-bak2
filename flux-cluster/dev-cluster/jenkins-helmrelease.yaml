@@ -1,24 +1,43 @@
-apiVersion: helm.toolkit.fluxcd.io/v2  # Ensure this is the correct version
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jenkins  # This should match the name you want for your HelmRelease
-  namespace: default  # Namespace where you want Jenkins to be deployed
+  name: jenkins
+  namespace: default
 spec:
-  releaseName: jenkins  # Name of the release in Helm
+  releaseName: jenkins
   chart:
     spec:
-      chart: jenkins  # The name of the chart
+      chart: jenkins
       sourceRef:
         kind: HelmRepository
-        name: jenkins-helm-repo  # Reference the HelmRepository defined above
-        namespace: flux-system  # Namespace where the HelmRepository is defined
-      version: 5.4.0  # Specify the version of the Jenkins chart you want to install
-  interval: 1m  # Required field: How often to reconcile the HelmRelease
+        name: jenkins-helm-repo
+        namespace: flux-system
+      version: 5.4.0
+  interval: 1m
   values:
-    controller:  # Changed from master to controller
+    controller:
       service:
-        type: NodePort  # Change to LoadBalancer for external access
+        type: NodePort
       persistence:
         enabled: true
-        existingClaim: jenkins-pvc  # Reference to your existing PVC
-      replicas: 2  # Set the number of replicas to 2
+        existingClaim: jenkins-pvc
+      replicas: 1  # Set to 1 for the Jenkins master
+      jenkinsUrl: http://jenkins:8080  # URL for Jenkins
+      kubernetes:
+        enabled: true  # Enable Kubernetes plugin
+        namespace: default  # Namespace where agents will run
+        containerCap: 10  # Maximum number of concurrent agents
+        podTemplates:
+          - name: jnlp
+            label: jnlp
+            containers:
+              - name: jnlp
+                image: jenkins/jnlp-slave:latest  # Image for the Jenkins agent
+                args: ['\$(JENKINS_SECRET)', '\$(JENKINS_AGENT_NAME)']
+                resource:
+                  limits:
+                    memory: "512Mi"
+                    cpu: "500m"
+                  requests:
+                    memory: "256Mi"
+                    cpu: "250m"
