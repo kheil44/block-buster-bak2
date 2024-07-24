@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: jenkins-helm-repo  # Reference the HelmRepository defined above
         namespace: flux-system  # Namespace where the HelmRepository is defined
-      version: 3.5.9  # Specify the version of the Jenkins chart you want to install
+      version: 5.4.0  # Specify the version of the Jenkins chart you want to install
   interval: 1m  # Required field: How often to reconcile the HelmRelease
   values:
     controller:  # changed from master to controller
