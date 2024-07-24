@@ -1,21 +1,23 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+#apiVersion: helm.toolkit.fluxcd.io/v2beta1  # Ensure this is the correct version
+apiVersion: helm.toolkit.fluxcd.io/v2  # Ensure this is the correct version
 kind: HelmRelease
 metadata:
-  name: jenkins
-  namespace: default  # Change to your desired namespace
+  name: jenkins  # This should match the name you want for your HelmRelease
+  namespace: default  # Namespace where you want Jenkins to be deployed
 spec:
-  releaseName: jenkins
+  releaseName: jenkins  # Name of the release in Helm
   chart:
     spec:
-      chart: jenkins
+      chart: jenkins  # The name of the chart
       sourceRef:
         kind: HelmRepository
-        name: jenkins-helm-repo  # This should match the name of the HelmRepository
-        namespace: flux-system  # Change to the namespace where the HelmRepository is defined
-      #version: 3.5.9  # Specify the version of the Jenkins chart you want to install
+        name: jenkins-helm-repo  # Reference the HelmRepository defined above
+        namespace: flux-system  # Namespace where the HelmRepository is defined
+      version: 3.5.9  # Specify the version of the Jenkins chart you want to install
+  interval: 1m  # Required field: How often to reconcile the HelmRelease
   values:
     master:
       persistence:
         enabled: true
-        existingClaim: jenkins-pvc  # Reference the PVC created earlier
+        existingClaim: jenkins-pvc  # Reference to your existing PVC
       replicas: 2  # Set the number of replicas to 2
