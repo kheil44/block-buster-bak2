@@ -9,3 +9,4 @@ spec:
   resources:
     requests:
       storage: 1Gi  # Adjust the size according to your needs
+  storageClassName: nfs-client  # Replace with your actual storage class name
